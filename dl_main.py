@@ -1,6 +1,4 @@
-import dl_functions as dlf
-
-print(dlf.XOR(0, 0))
-print(dlf.XOR(1, 0))
-print(dlf.XOR(0, 1))
-print(dlf.XOR(1, 1))
+from dataset.mnist import load_mnist
+import sys
+import os
+sys.path.append(os.pardir)
