@@ -1,16 +1,21 @@
 import numpy as np
 import dl_functions as dlf
 
-x, t = dlf.get_data()
-network = dlf.init_network_mnist()
+# x, t = dlf.get_data()
+# network = dlf.init_network_mnist()
 
-batch_size = 100
-accuracy_cnt = 0
+(x_train, t_train), (x_test, t_test) = \
+    dlf.load_mnist(normalize=True, one_hot_label=True)
 
-for i in range(0, len(x), batch_size):
-    x_batch = x[i:i+batch_size]
-    y_batch = dlf.predict(network, x_batch)
-    p = np.argmax(y_batch, axis=1)
-    accuracy_cnt += np.sum(p == t[i:i+batch_size])
+train_size = x_train.shape[0]
+batch_size = 10
+batch_mask = np.random.choice(train_size, batch_size)
+x_batch = x_train[batch_mask]
+t_batch = t_train[batch_mask]
 
-print("Accuracy:" + str(float(accuracy_cnt) / len(x)))
+print(x_batch.size)
+print(x_batch.shape)
+
+print(dlf.numerical_gradient(dlf.function_2, np.array([3.0, 4.0])))
+print(dlf.numerical_gradient(dlf.function_2, np.array([0.0, 2.0])))
+print(dlf.numerical_gradient(dlf.function_2, np.array([3.0, 0.0])))
